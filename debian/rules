@@ -1,4 +1,10 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@
+	dh $@ --builddirectory=_build --buildsystem=golang --with=golang
+
+# Do not build the actual tree command, we just need the
+# programmatic part of the library.
+override_dh_auto_configure:
+	rm -rf cmd
+	dh_auto_configure --buildsystem=golang
